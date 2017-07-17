@@ -49,4 +49,11 @@ public class BookTest{
     testBook.setCheckedOutBy(1);
     assertEquals(1, testBook.getCheckedOutBy());
   }
+
+  @Test
+  public void save_savesBookToBooksTable_true(){
+    Book testBook = new Book("title", "author", 1979);
+    testBook.save();
+    assertTrue(testBook.getId() > 0);
+  }
 }

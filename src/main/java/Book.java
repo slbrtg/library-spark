@@ -1,4 +1,7 @@
+import org.sql2o.*;
+
 public class Book{
+  private int id;
   private String title;
   private String author;
   private int year;
@@ -10,6 +13,12 @@ public class Book{
     this.author = author;
     this.year = year;
     this.checkedOut = false;
+    this.checkedOutBy = 0;
+  }
+
+  //GET/SET METHODS
+  public int getId(){
+    return id;
   }
 
   public String getTitle(){
@@ -38,5 +47,21 @@ public class Book{
 
   public void setCheckedOutBy(int id){
     this.checkedOutBy = id;
+  }
+
+  //DATABASE METHODS
+  public void save(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "INSERT INTO books(title, author, year, checkedOut, checkedOutBy) Values(:title, :author, :year, :checkedOut, :checkedOutBy);";
+
+      this.id = (int) con.createQuery(sql, true)
+        .addParameter("title", this.title)
+        .addParameter("author", this.author)
+        .addParameter("year", this.year)
+        .addParameter("checkedOut", this.checkedOut)
+        .addParameter("checkedOutBy", this.checkedOutBy)
+        .executeUpdate()
+        .getKey();
+    }
   }
 }
