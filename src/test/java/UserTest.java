@@ -40,9 +40,13 @@ public class UserTest {
     User testUser = new User("test", "user");
     Book testBook = new Book("title", "author", 1979);
     testBook.save();
+    Book testBook2 = new Book("title2", "author2", 1980);
+    testBook2.save();
     testUser.borrowBook(testBook.getId());
+    testUser.borrowBook(testBook2.getId());
     assertEquals(testBook.getCheckedOutBy(), testUser.getId());
-
+    assertEquals(2, testUser.getNumofBooksCheckedOut());
+    assertTrue(Book.all().get(0).getCheckedOut());
   }
 
 }

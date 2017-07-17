@@ -8,6 +8,7 @@ public class User extends UserAbstract {
   public User(String username, String password){
     this.username = username;
     this.password  = password;
+    numOfBooksCheckedOut = 0;
   }
 
   //DATABASE METHODS
