@@ -3,6 +3,7 @@
 //Search method to find book by author or title or both
 
 public abstract class UserAbstract{
+  public static final int MAX_BOOKS_CHECKEDOUT = 4;
   public String username;
   public String password;
   public int id;
