@@ -24,4 +24,5 @@ public class UserAbstractTest {
     UserAbstract testUser = new UserAbstract("test", "user");
     assertEquals("user", testUser.getPassword());
   }
+
 }

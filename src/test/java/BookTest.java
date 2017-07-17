@@ -1,6 +1,9 @@
 import org.sql2o.*;
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BookTest{
   @Rule
@@ -66,4 +69,17 @@ public class BookTest{
     assertEquals(Book.all().get(0).getId(), testBook.getId());
     assertEquals(Book.all().get(1).getId(), testBook2.getId());
   }
+
+
+    @Test
+    public void findBook_findsBookByTitleAuthorAndYear_true(){
+      Book testBook = new Book("title", "author", 1979);
+      testBook.save();
+      List<String> query = Arrays.asList("title", "author", "1979");
+      System.out.println("Contents of Query(0) " + query.get(0));
+      System.out.println("Contents of Query(1) " + query.get(1));
+      System.out.println("Contents of Query(2) " + query.get(2));
+      System.out.println("results of findBook(): " + Book.findBook(query).get(0));
+      assertEquals(testBook.getTitle(), Book.findBook(query).get(0).getTitle());
+    }
 }

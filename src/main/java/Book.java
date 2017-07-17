@@ -73,4 +73,17 @@ public class Book{
       return con.createQuery(sql).executeAndFetch(Book.class);
     }
   }
+
+  public static List<Book> findBook(List<String> search){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM books WHERE title = :title AND author = :author AND year = :year OR title = :title AND author = :author OR title = :title AND year = :year OR author = :author AND year = :year OR title = :title OR author = :author OR year = :year;";
+
+      List<Book> searchResults =  con.createQuery(sql)
+        .addParameter("title", search.get(0))
+        .addParameter("author", search.get(1))
+        .addParameter("year", Integer.parseInt(search.get(2)))
+        .executeAndFetch(Book.class);
+      return searchResults;
+    }
+  }
 }
