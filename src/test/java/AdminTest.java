@@ -28,4 +28,11 @@ public class AdminTest{
     assertEquals("admin", testAdmin.getPassword());
   }
 
+  @Test
+  public void addBookToLibrary_addsTestBookToLibrary_true(){
+    Admin testAdmin = new Admin("test", "admin");
+    testAdmin.addBookToLibrary("test", "book", 1979);
+    assertTrue(Book.all().get(0).getId() > 0); 
+  }
+
 }
