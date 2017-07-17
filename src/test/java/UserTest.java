@@ -49,4 +49,17 @@ public class UserTest {
     assertTrue(Book.all().get(0).getCheckedOut());
   }
 
+  @Test
+  public void returnBook_changesBookBorrowedStateInDB_true(){
+    User testUser = new User("test", "user");
+    Book testBook = new Book("title", "author", 1979);
+    testBook.save();
+    testUser.borrowBook(testBook.getId());
+    testUser.returnBook(testBook.getId());
+    assertEquals(testBook.getCheckedOutBy(), 0);
+    assertEquals(0, testUser.getNumofBooksCheckedOut());
+    assertFalse(Book.all().get(0).getCheckedOut());
+  }
+
+
 }
