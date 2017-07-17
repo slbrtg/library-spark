@@ -35,4 +35,14 @@ public class UserTest {
     assertEquals(User.all().get(1).getId(), testUser2.getId());
   }
 
+  @Test
+  public void borrowBook_changesBookBorrowedStateInDB_true(){
+    User testUser = new User("test", "user");
+    Book testBook = new Book("title", "author", 1979);
+    testBook.save();
+    testUser.borrowBook(testBook.getId());
+    assertEquals(testBook.getCheckedOutBy(), testUser.getId());
+
+  }
+
 }

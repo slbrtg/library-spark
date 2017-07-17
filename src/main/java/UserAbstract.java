@@ -1,6 +1,6 @@
 //Superclass for admin and user
-//Shares:
-//Search method to find book by author or title or both
+import org.sql2o.*;
+
 
 public abstract class UserAbstract{
   public static final int MAX_BOOKS_CHECKEDOUT = 4;
@@ -24,5 +24,13 @@ public abstract class UserAbstract{
 
 
   //DATABASE METHODS
-
+  public void borrowBook(int bookId){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "UPDATE books SET checkedOut = true, checkedOutBy = :userId WHERE id=:bookId;";
+      con.createQuery(sql)
+        .addParameter("userId", this.id)
+        .addParameter("bookId", bookId)
+        .executeUpdate();
+    }
+  }
 }
