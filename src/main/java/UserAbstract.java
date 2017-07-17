@@ -6,7 +6,7 @@ public abstract class UserAbstract{
   public String username;
   public String password;
   public int id;
-  
+
   //GET/SET METHODS
   public String getUsername(){
     return username;
@@ -15,6 +15,10 @@ public abstract class UserAbstract{
 
   public String getPassword(){
     return password;
+  }
+
+  public int getId(){
+    return id;
   }
 
 

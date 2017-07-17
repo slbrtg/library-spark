@@ -25,4 +25,14 @@ public class UserTest {
     assertEquals("user", testUser.getPassword());
   }
 
+  @Test
+  public void all_ReturnsAllUsersInDB_true(){
+    User testUser = new User("test", "user");
+    testUser.save();
+    User testUser2 = new User("test2", "user2");
+    testUser2.save();
+    assertEquals(User.all().get(0).getId(), testUser.getId());
+    assertEquals(User.all().get(1).getId(), testUser2.getId());
+  }
+
 }
