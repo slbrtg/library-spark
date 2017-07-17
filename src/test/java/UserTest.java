@@ -61,5 +61,12 @@ public class UserTest {
     assertFalse(Book.all().get(0).getCheckedOut());
   }
 
+  @Test
+  public void login_checksUserCredentialsInDB_true(){
+    User testUser = new User("test", "user");
+    testUser.save();
+    assertTrue(testUser.login(testUser.getUsername(), testUser.getPassword(), "users"));
+  }
+
 
 }
