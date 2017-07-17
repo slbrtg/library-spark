@@ -13,8 +13,10 @@ public class DatabaseRule extends ExternalResource {
     try(Connection con = DB.sql2o.open()) {
       String deleteUsersQuery = "DELETE FROM users *;";
       String deleteAdminsQuery = "DELETE FROM admins *;";
+      String deleteBooksQuery = "DELETE FROM books *;";
       con.createQuery(deleteUsersQuery).executeUpdate();
       con.createQuery(deleteAdminsQuery).executeUpdate();
+      con.createQuery(deleteBooksQuery).executeUpdate();
     }
   }
 
