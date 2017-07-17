@@ -1,4 +1,6 @@
 import org.sql2o.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Book{
   private int id;
@@ -62,6 +64,13 @@ public class Book{
         .addParameter("checkedOutBy", this.checkedOutBy)
         .executeUpdate()
         .getKey();
+    }
+  }
+
+  public static List<Book> all(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM books";
+      return con.createQuery(sql).executeAndFetch(Book.class);
     }
   }
 }

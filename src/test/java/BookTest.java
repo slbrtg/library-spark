@@ -56,4 +56,14 @@ public class BookTest{
     testBook.save();
     assertTrue(testBook.getId() > 0);
   }
+
+  @Test
+  public void all_returnsAllInstancesOfBook_true(){
+    Book testBook = new Book("title", "author", 1979);
+    testBook.save();
+    Book testBook2 = new Book("title2", "author2", 1980);
+    testBook2.save();
+    assertEquals(Book.all().get(0).getId(), testBook.getId());
+    assertEquals(Book.all().get(1).getId(), testBook2.getId());
+  }
 }
