@@ -36,7 +36,7 @@ public class Book{
     return checkedOutBy;
   }
 
-  public void setCheckedOutById(int id){
+  public void setCheckedOutBy(int id){
     this.checkedOutBy = id;
   }
 }

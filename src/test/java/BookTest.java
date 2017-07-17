@@ -42,4 +42,11 @@ public class BookTest{
     testBook.setCheckedOut(true);
     assertEquals(true, testBook.getCheckedOut());
   }
+
+  @Test
+  public void getAndsetCheckedOutBy_returnsCheckedOutById_1(){
+    Book testBook = new Book("title", "author", 1979);
+    testBook.setCheckedOutBy(1);
+    assertEquals(1, testBook.getCheckedOutBy());
+  }
 }
