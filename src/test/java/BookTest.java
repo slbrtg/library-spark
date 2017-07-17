@@ -76,10 +76,6 @@ public class BookTest{
       Book testBook = new Book("title", "author", 1979);
       testBook.save();
       List<String> query = Arrays.asList("title", "author", "1979");
-      System.out.println("Contents of Query(0) " + query.get(0));
-      System.out.println("Contents of Query(1) " + query.get(1));
-      System.out.println("Contents of Query(2) " + query.get(2));
-      System.out.println("results of findBook(): " + Book.findBook(query).get(0));
       assertEquals(testBook.getTitle(), Book.findBook(query).get(0).getTitle());
     }
 }
