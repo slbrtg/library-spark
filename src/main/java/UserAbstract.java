@@ -36,7 +36,11 @@ public abstract class UserAbstract{
         .addParameter("userId", this.id)
         .addParameter("bookId", bookId)
         .executeUpdate();
-        this.numOfBooksCheckedOut += 1;
+        if (this.getNumofBooksCheckedOut() == MAX_BOOKS_CHECKEDOUT){
+          System.out.println("Return some books to borrow new books");
+        } else {
+          this.numOfBooksCheckedOut += 1;
+        }
     }
     try(Connection con2 = DB.sql2o.open()){
       String sql = "UPDATE users SET numOfBooksCheckedOut = :num WHERE id=:id;";
