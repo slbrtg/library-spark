@@ -3,6 +3,8 @@ import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 public class App {
 
@@ -63,6 +65,31 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("books", Book.all());
       model.put("template", "templates/user-all-books.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    get("/user/:id/find-book", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params("id")));
+      model.put("user", user);
+      model.put("template", "templates/user-find-book.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    post("/user/:id/find-book", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      List<String> search = new ArrayList<String>();
+      User user = User.find(Integer.parseInt(request.params("id")));
+      search.add(request.queryParams("bookTitle"));
+      search.add(request.queryParams("bookAuthor"));
+      //search.add(request.queryParams("bookYear"));
+      model.put("books", Book.findBook(search));
+      model.put("user", user);
+      model.put("template", "templates/user-find-book.vtl");
       return new VelocityTemplateEngine().render(
         new ModelAndView(model, layout)
       );

@@ -76,14 +76,30 @@ public class Book{
 
   public static List<Book> findBook(List<String> search){
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT * FROM books WHERE title = :title AND author = :author AND year = :year OR title = :title AND author = :author OR title = :title AND year = :year OR author = :author AND year = :year OR title = :title OR author = :author OR year = :year;";
-
+      String sql = "SELECT * FROM books WHERE title = :title OR author = :author;";
+      String title = search.get(0);
+      String author = search.get(1);
       List<Book> searchResults =  con.createQuery(sql)
-        .addParameter("title", search.get(0))
-        .addParameter("author", search.get(1))
-        .addParameter("year", Integer.parseInt(search.get(2)))
+        .addParameter("title", title)
+        .addParameter("author", author)
         .executeAndFetch(Book.class);
       return searchResults;
     }
+
   }
+
+  // public static List<Book> findBook(List<String> search){
+  //   try(Connection con = DB.sql2o.open()){
+  //     String sql = "SELECT * FROM books WHERE title = :title AND author = :author AND year = :year OR title = :title AND author = :author OR title = :title AND year = :year OR author = :author AND year = :year OR title = :title OR author = :author OR year = :year;";
+  //     String title = search.get(0);
+  //     String author = search.get(1);
+  //     String year = search.get(2);
+  //     List<Book> searchResults =  con.createQuery(sql)
+  //       .addParameter("title", title)
+  //       .addParameter("author", author)
+  //       .addParameter("year", Integer.parseInt(year))
+  //       .executeAndFetch(Book.class);
+  //     return searchResults;
+  //   }
+  // }
 }
