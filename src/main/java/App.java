@@ -59,6 +59,15 @@ public class App {
       );
     });
 
+    get("/user/:id/all-books", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("books", Book.all());
+      model.put("template", "templates/user-all-books.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
 
 
     //ADMIN ROUTES
