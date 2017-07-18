@@ -32,7 +32,18 @@ public class AdminTest{
   public void addBookToLibrary_addsTestBookToLibrary_true(){
     Admin testAdmin = new Admin("test", "admin");
     testAdmin.addBookToLibrary("test", "book", 1979);
-    assertTrue(Book.all().get(0).getId() > 0); 
+    assertTrue(Book.all().get(0).getId() > 0);
+  }
+
+  @Test
+  public void login_checksAdminCredentialsInDB_true(){
+    Admin testAdmin = new Admin("test", "admin");
+    try(Connection con = DB.sql2o.open()){
+      String sql = "INSERT INTO admins (username, password) VALUES ('test', 'admin');";
+      con.createQuery(sql)
+        .executeUpdate();
+    }
+    assertTrue(testAdmin.login(testAdmin.getUsername(), testAdmin.getPassword()));
   }
 
 }

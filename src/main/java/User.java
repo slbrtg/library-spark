@@ -40,4 +40,23 @@ public class User extends UserAbstract {
     return user;
     }
   }
+
+  public boolean login(String username, String password){
+
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT id FROM users WHERE username=:username AND password=:password;";
+
+      User user = con.createQuery(sql)
+        .addParameter("username", username)
+        .addParameter("password", password)
+        .executeAndFetchFirst(User.class);
+      if (user.getId() > 0){
+        System.out.println("Authenticated");
+        return true;
+      } else {
+        System.out.println("false");
+        return false;
+      }
+    }
+  }
 }

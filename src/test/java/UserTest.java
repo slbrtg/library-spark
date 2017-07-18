@@ -65,7 +65,7 @@ public class UserTest {
   public void login_checksUserCredentialsInDB_true(){
     User testUser = new User("test", "user");
     testUser.save();
-    assertTrue(testUser.login(testUser.getUsername(), testUser.getPassword(), "users"));
+    assertTrue(testUser.login(testUser.getUsername(), testUser.getPassword()));
   }
 
 

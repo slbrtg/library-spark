@@ -74,23 +74,4 @@ public abstract class UserAbstract{
         .executeUpdate();
     }
   }
-
-  public void login(String username, String password, String table){
-    int userId;
-
-    try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT id FROM :table WHERE username=:username AND password=:password;";
-
-      userId = (int) con.createQuery(sql, true)
-        .addParameter("table", table)
-        .addParameter("username", username)
-        .addParameter("password", password)
-      .getKey();
-    }
-    if (userId > 0){
-      System.out.println("Authenticated");
-    } else {
-      System.out.println("false");
-    }
-  }
 }
