@@ -41,8 +41,7 @@ public class User extends UserAbstract {
     }
   }
 
-  public boolean login(String username, String password){
-
+  public static int login(String username, String password){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM users WHERE username=:username AND password=:password;";
 
@@ -50,12 +49,10 @@ public class User extends UserAbstract {
         .addParameter("username", username)
         .addParameter("password", password)
         .executeAndFetchFirst(User.class);
-      if (user.getId() > 0){
-        System.out.println("Authenticated");
-        return true;
+      if (user == null){
+        return -1;
       } else {
-        System.out.println("false");
-        return false;
+        return user.getId();
       }
     }
   }

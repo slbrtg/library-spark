@@ -12,7 +12,7 @@ public class Admin extends UserAbstract{
     newBook.save();
   }
 
-  public static boolean login(String username, String password){
+  public static int login(String username, String password){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM admins WHERE username=:username AND password=:password;";
 
@@ -21,9 +21,9 @@ public class Admin extends UserAbstract{
         .addParameter("password", password)
         .executeAndFetchFirst(Admin.class);
       if (admin == null){
-        return false;
+        return -1;
       } else {
-        return true;
+        return admin.getId();
       }
     }
   }

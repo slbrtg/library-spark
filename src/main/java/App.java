@@ -22,7 +22,8 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       String username = request.queryParams("adminUsername");
       String password = request.queryParams("adminPassword");
-      if (Admin.login(username,password)){
+      if (Admin.login(username,password) != -1){
+        model.put("adminId", Admin.login(username,password));
         model.put("template", "templates/admin-authenticated.vtl");
       }else {
         model.put("template", "templates/login-fail.vtl");

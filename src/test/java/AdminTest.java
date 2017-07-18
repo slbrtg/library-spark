@@ -43,8 +43,8 @@ public class AdminTest{
       con.createQuery(sql)
         .executeUpdate();
     }
-    assertTrue(Admin.login(testAdmin.getUsername(), testAdmin.getPassword()));
-    assertEquals(false, Admin.login("red", "red"));
+    assertTrue(Admin.login(testAdmin.getUsername(), testAdmin.getPassword()) >= 0);
+    assertEquals(-1, Admin.login("red", "red"));
   }
 
 }
