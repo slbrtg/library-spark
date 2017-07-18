@@ -12,6 +12,16 @@ public class Admin extends UserAbstract{
     newBook.save();
   }
 
+  public static Admin find(int id){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM admins where id=:id;";
+      Admin admin = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Admin.class);
+    return admin;
+    }
+  }
+
   public static int login(String username, String password){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM admins WHERE username=:username AND password=:password;";

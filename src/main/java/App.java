@@ -23,11 +23,22 @@ public class App {
       String username = request.queryParams("adminUsername");
       String password = request.queryParams("adminPassword");
       if (Admin.login(username,password) != -1){
-        model.put("adminId", Admin.login(username,password));
+        Admin admin = Admin.find(Admin.login(username,password));
+        model.put("admin", admin);
         model.put("template", "templates/admin-authenticated.vtl");
       }else {
         model.put("template", "templates/login-fail.vtl");
       }
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    get("administrator/:id/home", (request, response) -> {
+      Map<String, Object> model = new HashMap<String,Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("id")));
+      model.put("admin", admin);
+      model.put("template", "templates/admin-home.vtl");
       return new VelocityTemplateEngine().render(
         new ModelAndView(model, layout)
       );
