@@ -44,7 +44,7 @@ public class User extends UserAbstract {
   public boolean login(String username, String password){
 
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT id FROM users WHERE username=:username AND password=:password;";
+      String sql = "SELECT * FROM users WHERE username=:username AND password=:password;";
 
       User user = con.createQuery(sql)
         .addParameter("username", username)
