@@ -165,6 +165,8 @@ public class App {
 
     get("/admin/:id/all-books", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("id")));
+      model.put("admin", admin);
       model.put("books", Book.all());
       model.put("template", "templates/admin-all-books.vtl");
       return new VelocityTemplateEngine().render(
