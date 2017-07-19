@@ -1,0 +1,17 @@
+<h1>Find a book</h1>
+<form action="/admin/$admin.getId()/find-book" method="post">
+  <label for="bookTitle">Title</label>
+  <input id="bookTitle" class="form-control" type="text" name="bookTitle" >
+  <label for="bookAuthor">Author</label>
+  <input id="bookAuthor" class="form-control" type="text" name="bookAuthor">
+  <!-- <label for="bookYear">Year</label>
+  <input id="bookYear" class="form-control" type="text" name="bookYear" value="0"> -->
+  <button class="btn btn-danger" type="submit" name="button">Search!</button>
+</form>
+
+#foreach ($book in $books)
+<hr>
+<h2><a href="/admin/$admin.getId()/book/$book.getId()">$book.getTitle()</a></h2>
+<h3>by $book.getAuthor()</h3>
+<h4>year $book.getYear()</h4>
+#end

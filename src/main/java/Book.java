@@ -1,19 +1,25 @@
 import org.sql2o.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.sql.Timestamp;
 
 public class Book{
   private int id;
   private String title;
   private String author;
+  private String description;
+  private String imageUrl;
   private int year;
   private boolean checkedOut;
   private int checkedOutBy;
+  private Timestamp duedate;
 
-  public Book(String title, String author, int year){
+  public Book(String title, String author, int year, String description, String imageUrl){
     this.title = title;
     this.author = author;
     this.year = year;
+    this.description = description;
+    this.imageUrl = imageUrl;
     this.checkedOut = false;
     this.checkedOutBy = 0;
   }
@@ -25,6 +31,14 @@ public class Book{
 
   public String getTitle(){
     return title;
+  }
+
+  public String getDescription(){
+    return description;
+  }
+
+  public String getImageUrl(){
+    return imageUrl;
   }
 
   public String getAuthor(){
@@ -49,6 +63,10 @@ public class Book{
 
   public void setCheckedOutBy(int id){
     this.checkedOutBy = id;
+  }
+
+  public Timestamp getDueDate(){
+    return duedate;
   }
 
   //DATABASE METHODS

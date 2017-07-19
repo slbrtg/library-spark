@@ -38,9 +38,9 @@ public class UserTest {
   @Test
   public void borrowBook_changesBookBorrowedStateInDB_true(){
     User testUser = new User("test", "user");
-    Book testBook = new Book("title", "author", 1979);
+    Book testBook = new Book("title", "author", 1979, "", "");
     testBook.save();
-    Book testBook2 = new Book("title2", "author2", 1980);
+    Book testBook2 = new Book("title2", "author2", 1980, "", "");
     testBook2.save();
     testUser.borrowBook(testBook.getId());
     testUser.borrowBook(testBook2.getId());
@@ -52,7 +52,7 @@ public class UserTest {
   @Test
   public void returnBook_changesBookBorrowedStateInDB_true(){
     User testUser = new User("test", "user");
-    Book testBook = new Book("title", "author", 1979);
+    Book testBook = new Book("title", "author", 1979, "", "");
     testBook.save();
     testUser.borrowBook(testBook.getId());
     testUser.returnBook(testBook.getId());

@@ -123,5 +123,39 @@ public class App {
         new ModelAndView(model, layout)
       );
     });
+
+    get("/admin/:id/all-books", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("books", Book.all());
+      model.put("template", "templates/admin-all-books.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    get("/admin/:id/find-book", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("id")));
+      model.put("admin", admin);
+      model.put("template", "templates/admin-find-book.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    post("/admin/:id/find-book", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      List<String> search = new ArrayList<String>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("id")));
+      search.add(request.queryParams("bookTitle"));
+      search.add(request.queryParams("bookAuthor"));
+      //search.add(request.queryParams("bookYear"));
+      model.put("books", Book.findBook(search));
+      model.put("admin", admin);
+      model.put("template", "templates/admin-find-book.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
   }
 }

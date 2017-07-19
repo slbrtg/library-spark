@@ -7,8 +7,8 @@ public class Admin extends UserAbstract{
     numOfBooksCheckedOut = 0;
   }
 
-  public void addBookToLibrary(String title, String author, int year){
-    Book newBook = new Book(title, author, year);
+  public void addBookToLibrary(String title, String author, int year, String description, String imageUrl){
+    Book newBook = new Book(title, author, year, description, imageUrl);
     newBook.save();
   }
 
