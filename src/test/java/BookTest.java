@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 public class BookTest{
   @Rule
@@ -77,5 +78,13 @@ public class BookTest{
       testBook.save();
       List<String> query = Arrays.asList("title", "author", "1979");
       assertEquals(testBook.getTitle(), Book.findBook(query).get(0).getTitle());
+    }
+
+    @Test
+    public void set_getDueDate_returnsTrue(){
+      Date duedate = new Date(System.currentTimeMillis()+5*60*100000);
+      Book testBook = new Book("title", "author", 1979, "", "");
+      testBook.setDueDate(duedate);
+      assertEquals(duedate, testBook.getDueDate());
     }
 }

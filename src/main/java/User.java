@@ -1,6 +1,7 @@
 import org.sql2o.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class User extends UserAbstract {
 
@@ -58,9 +59,14 @@ public class User extends UserAbstract {
   }
 
   public boolean userBorrowBook(int bookId){
+    Date duedate = new Date(System.currentTimeMillis()+5*60*100000);
+    Book book = Book.find(bookId);
+    book.setDueDate(duedate);
+    System.out.println(book.getDueDate());
     try(Connection con = DB.sql2o.open()){
-      String sql = "UPDATE books SET checkedOut = true, checkedOutBy = :userId WHERE id=:bookId;";
+      String sql = "UPDATE books SET checkedOut = true, checkedOutBy = :userId, duedate = :duedate WHERE id=:bookId;";
       con.createQuery(sql, true)
+        .addParameter("duedate", duedate)
         .addParameter("userId", this.id)
         .addParameter("bookId", bookId)
         .executeUpdate();

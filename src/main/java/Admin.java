@@ -1,4 +1,5 @@
 import org.sql2o.*;
+import java.util.Date;
 public class Admin extends UserAbstract{
 
   public Admin(String username, String password){
@@ -39,9 +40,14 @@ public class Admin extends UserAbstract{
   }
 
   public boolean adminBorrowBook(int bookId){
+    Date duedate = new Date(System.currentTimeMillis()+5*60*100000);
+    Book book = Book.find(bookId);
+    book.setDueDate(duedate);
+    System.out.println(book.getDueDate());
     try(Connection con = DB.sql2o.open()){
-      String sql = "UPDATE books SET checkedOut = true, checkedOutBy = :adminId WHERE id=:bookId;";
+      String sql = "UPDATE books SET checkedOut = true, checkedOutBy = :adminId, duedate = :duedate WHERE id=:bookId;";
       con.createQuery(sql, true)
+        .addParameter("duedate", duedate)
         .addParameter("adminId", this.id)
         .addParameter("bookId", bookId)
         .executeUpdate();

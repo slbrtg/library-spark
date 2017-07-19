@@ -1,6 +1,7 @@
 import org.sql2o.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import java.sql.Timestamp;
 
 public class Book{
@@ -12,7 +13,7 @@ public class Book{
   private int year;
   private boolean checkedOut;
   private int checkedOutBy;
-  private Timestamp duedate;
+  private Date duedate;
 
   public Book(String title, String author, int year, String description, String imageUrl){
     this.title = title;
@@ -65,8 +66,12 @@ public class Book{
     this.checkedOutBy = id;
   }
 
-  public Timestamp getDueDate(){
+  public Date getDueDate(){
     return duedate;
+  }
+
+  public void setDueDate(Date duedate){
+    this.duedate = duedate;
   }
 
   //DATABASE METHODS
