@@ -63,8 +63,21 @@ public class App {
 
     get("/user/:id/all-books", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params("id")));
+      model.put("user", user);
       model.put("books", Book.all());
       model.put("template", "templates/user-all-books.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    get("/user/:userId/book/:bookId", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params("userId")));
+      Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      model.put("book", book);
+      model.put("template", "templates/user-book-view.vtl");
       return new VelocityTemplateEngine().render(
         new ModelAndView(model, layout)
       );
