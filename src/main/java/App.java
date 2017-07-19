@@ -10,13 +10,18 @@ public class App {
 
   public static void main(String[] args) {
     staticFileLocation("/public");
-    String layout = "templates/layout.vtl";
+    String layoutHome = "templates/layout.vtl";
+    String layoutUser = "templates/user-layout.vtl";
+    String layoutAdmin = "templates/admin-layout.vtl";
+
+
+
     //GET /
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/index.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutHome)
       );
     });
 
@@ -30,7 +35,7 @@ public class App {
       model.put("user", user);
       model.put("template", "templates/signedup.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutUser)
       );
     });
     //USER ROUTES
@@ -40,7 +45,7 @@ public class App {
       model.put("user", user);
       model.put("template", "templates/user-home.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutUser)
       );
     });
 
@@ -57,7 +62,7 @@ public class App {
         model.put("template", "templates/login-fail.vtl");
       }
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutUser)
       );
     });
 
@@ -68,7 +73,7 @@ public class App {
       model.put("books", Book.all());
       model.put("template", "templates/user-all-books.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutUser)
       );
     });
 
@@ -80,7 +85,7 @@ public class App {
       model.put("user", user);
       model.put("template", "templates/user-book-view.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutUser)
       );
     });
 
@@ -90,7 +95,7 @@ public class App {
       model.put("user", user);
       model.put("template", "templates/user-find-book.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutUser)
       );
     });
 
@@ -105,7 +110,7 @@ public class App {
       model.put("user", user);
       model.put("template", "templates/user-find-book.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutUser)
       );
     });
 
@@ -116,12 +121,12 @@ public class App {
       model.put("book", book);
       model.put("user", user);
       if (user.userBorrowBook(book.getId())){
-        model.put("template", "templates/checkout-success.vtl");
+        model.put("template", "templates/user-checkout-success.vtl");
       } else {
-        model.put("template", "templates/checkout-failure.vtl");
+        model.put("template", "templates/user-checkout-failure.vtl");
       }
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutUser)
       );
     });
 
@@ -132,12 +137,12 @@ public class App {
       model.put("book", book);
       model.put("user", user);
       if (user.userReturnBook(book.getId())){
-        model.put("template", "templates/return-success.vtl");
+        model.put("template", "templates/user-return-success.vtl");
       } else {
-        model.put("template", "templates/return-failure.vtl");
+        model.put("template", "templates/user-return-failure.vtl");
       }
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutUser)
       );
     });
 
@@ -156,7 +161,7 @@ public class App {
         model.put("template", "templates/login-fail.vtl");
       }
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
 
@@ -166,7 +171,7 @@ public class App {
       model.put("admin", admin);
       model.put("template", "templates/admin-home.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
 
@@ -176,7 +181,7 @@ public class App {
       model.put("admin", admin);
       model.put("template", "templates/admin-add-book.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
 
@@ -194,7 +199,7 @@ public class App {
       model.put("book", book);
       model.put("template", "templates/admin-add-book-success.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
 
@@ -206,7 +211,7 @@ public class App {
       model.put("book", book);
       model.put("template", "templates/admin-book-view.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
 
@@ -217,7 +222,7 @@ public class App {
       model.put("books", Book.all());
       model.put("template", "templates/admin-all-books.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
 
@@ -227,7 +232,7 @@ public class App {
       model.put("admin", admin);
       model.put("template", "templates/admin-find-book.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
 
@@ -241,7 +246,7 @@ public class App {
       model.put("admin", admin);
       model.put("template", "templates/admin-find-book.vtl");
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
 
@@ -252,12 +257,12 @@ public class App {
       model.put("book", book);
       model.put("admin", admin);
       if (admin.adminBorrowBook(book.getId())){
-        model.put("template", "templates/checkout-success.vtl");
+        model.put("template", "templates/admin-checkout-success.vtl");
       } else {
-        model.put("template", "templates/checkout-failure.vtl");
+        model.put("template", "templates/admin-checkout-failure.vtl");
       }
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
 
@@ -268,12 +273,12 @@ public class App {
       model.put("book", book);
       model.put("admin", admin);
       if (admin.adminReturnBook(book.getId())){
-        model.put("template", "templates/return-success.vtl");
+        model.put("template", "templates/admin-return-success.vtl");
       } else {
-        model.put("template", "templates/return-failure.vtl");
+        model.put("template", "templates/admin-return-failure.vtl");
       }
       return new VelocityTemplateEngine().render(
-        new ModelAndView(model, layout)
+        new ModelAndView(model, layoutAdmin)
       );
     });
   }
