@@ -169,6 +169,7 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Admin admin = Admin.find(Integer.parseInt(request.params("adminId")));
       Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      model.put("admin", admin);
       model.put("book", book);
       model.put("template", "templates/admin-book-view.vtl");
       return new VelocityTemplateEngine().render(

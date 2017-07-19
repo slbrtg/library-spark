@@ -1,5 +1,6 @@
 .form-control {
-  width: 250px;
+  width: 300px;
+  margin-bottom: 25px;
 }
 
 .book-cover {
@@ -10,4 +11,16 @@
 .book-cover-small {
   height: 300px;
   width: 225px;
+}
+
+#bookDescription {
+  height: 500px;
+  width: 300px;
+  overflow: auto;
+}
+
+#admin-button-grid {
+  display: grid;
+  grid-template-columns: 105px 80px 80px 70px;
+  grid-template-rows: auto auto auto auto;
 }
