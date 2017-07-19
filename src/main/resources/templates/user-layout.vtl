@@ -8,6 +8,12 @@
   <body>
     <!-- begin inner template-->
     <div class="container-fluid">
+      <nav class="navbar">
+        <ol class="breadcrumb">
+          <li><a href="/user/$user.getId()/home">Home</a></li>
+          <li><a href="/user/$user.getId()/all-books">Library</a></li>
+        </ol>
+      </nav>
       #parse( $template )
     </div>
     <!-- end inner template-->

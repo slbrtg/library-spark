@@ -11,6 +11,7 @@
 
 #foreach ($book in $books)
 <hr>
+<img class="book-cover" src="$book.getImageUrl()" alt="$book.getTitle() by $book.getAuthor()" />
 <h2><a href="/admin/$admin.getId()/book/$book.getId()">$book.getTitle()</a></h2>
 <h3>by $book.getAuthor()</h3>
 <h4>year $book.getYear()</h4>

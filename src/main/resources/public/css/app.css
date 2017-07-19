@@ -30,3 +30,7 @@
   grid-template-columns: 105px 80px;
   grid-template-rows: auto auto;
 }
+
+.library-banner {
+  display: hidden;
+}
