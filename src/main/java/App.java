@@ -114,11 +114,50 @@ public class App {
       );
     });
 
-    get("administrator/:id/home", (request, response) -> {
+    get("admin/:id/home", (request, response) -> {
       Map<String, Object> model = new HashMap<String,Object>();
       Admin admin = Admin.find(Integer.parseInt(request.params("id")));
       model.put("admin", admin);
       model.put("template", "templates/admin-home.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    get("/admin/:id/add-book", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("id")));
+      model.put("admin", admin);
+      model.put("template", "templates/admin-add-book.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    post("/admin/:id/add-book/success", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      String title = request.queryParams("bookTitle");
+      String author = request.queryParams("bookAuthor");
+      int year = Integer.parseInt(request.queryParams("bookYear"));
+      String description = request.queryParams("bookDescription");
+      String imageUrl = request.queryParams("bookImageUrl");
+      Admin admin = Admin.find(Integer.parseInt(request.params("id")));
+      Book book = new Book(title, author, year, description, imageUrl);
+      book.save();
+      model.put("admin", admin);
+      model.put("book", book);
+      model.put("template", "templates/admin-add-book-success.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    get("/admin/:adminId/book/:bookId", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("adminId")));
+      Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      model.put("book", book);
+      model.put("template", "templates/admin-book-view.vtl");
       return new VelocityTemplateEngine().render(
         new ModelAndView(model, layout)
       );

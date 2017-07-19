@@ -72,14 +72,17 @@ public class Book{
   //DATABASE METHODS
   public void save(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "INSERT INTO books(title, author, year, checkedOut, checkedOutBy) Values(:title, :author, :year, :checkedOut, :checkedOutBy);";
+      String sql = "INSERT INTO books(title, author, year, description, imageUrl, checkedOut, checkedOutBy, duedate) Values(:title, :author, :year, :description, :imageUrl, :checkedOut, :checkedOutBy, :duedate);";
 
       this.id = (int) con.createQuery(sql, true)
         .addParameter("title", this.title)
         .addParameter("author", this.author)
         .addParameter("year", this.year)
+        .addParameter("description", this.description)
+        .addParameter("imageUrl", this.imageUrl)
         .addParameter("checkedOut", this.checkedOut)
         .addParameter("checkedOutBy", this.checkedOutBy)
+        .addParameter("duedate", this.duedate)
         .executeUpdate()
         .getKey();
     }
@@ -89,6 +92,16 @@ public class Book{
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM books";
       return con.createQuery(sql).executeAndFetch(Book.class);
+    }
+  }
+
+  public static Book find(int id){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM books where id=:id;";
+      Book book = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Book.class);
+    return book;
     }
   }
 
@@ -105,19 +118,4 @@ public class Book{
     }
 
   }
-
-  // public static List<Book> findBook(List<String> search){
-  //   try(Connection con = DB.sql2o.open()){
-  //     String sql = "SELECT * FROM books WHERE title = :title AND author = :author AND year = :year OR title = :title AND author = :author OR title = :title AND year = :year OR author = :author AND year = :year OR title = :title OR author = :author OR year = :year;";
-  //     String title = search.get(0);
-  //     String author = search.get(1);
-  //     String year = search.get(2);
-  //     List<Book> searchResults =  con.createQuery(sql)
-  //       .addParameter("title", title)
-  //       .addParameter("author", author)
-  //       .addParameter("year", Integer.parseInt(year))
-  //       .executeAndFetch(Book.class);
-  //     return searchResults;
-  //   }
-  // }
 }

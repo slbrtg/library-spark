@@ -1,0 +1,15 @@
+<h1>Add a new book to the library</h1>
+<hr>
+<form action="/admin/$admin.getId()/add-book/success" method="post">
+  <label for="bookTitle">Title</label>
+  <input id="bookTitle" class="form-control" type="text" name="bookTitle" >
+  <label for="bookAuthor">Author</label>
+  <input id="bookAuthor" class="form-control" type="text" name="bookAuthor">
+  <label for="bookYear">Year</label>
+  <input id="bookYear" class="form-control" type="text" name="bookYear" >
+  <label for="bookDescription">Description</label>
+  <input id="bookDescription" class="form-control" type="text" name="bookDescription">
+  <label for="bookImageUrl">Url to image (local or web)</label>
+  <input id="bookImageUrl" class="form-control" type="text" name="bookImageUrl" >
+  <button class="btn btn-success" type="submit" name="button">Add book</button>
+</form>
