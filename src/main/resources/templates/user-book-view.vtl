@@ -4,7 +4,11 @@
 <hr>
 <h4>$book.getDescription()</h4>
 <hr>
-<div class="admin-button-grid">
-  <button class="btn btn-primary" type="button" name="button">Check Out</button>
-  <button class="btn btn-success"type="button" name="button">Return</button>
+<div id="user-button-grid">
+  <form action="/user/$user.getId()/book/$book.getId()/checkout" method="post">
+    <button class="btn btn-primary" type="submit" name="button">Check Out</button>
+  </form>
+  <form action="/user/$user.getId()/book/$book.getId()/return" method="post">
+    <button class="btn btn-success" type="submit" name="button">Return</button>
+  </form>
 </div>

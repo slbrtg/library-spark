@@ -37,4 +37,51 @@ public class Admin extends UserAbstract{
       }
     }
   }
+
+  public boolean adminBorrowBook(int bookId){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "UPDATE books SET checkedOut = true, checkedOutBy = :adminId WHERE id=:bookId;";
+      con.createQuery(sql, true)
+        .addParameter("adminId", this.id)
+        .addParameter("bookId", bookId)
+        .executeUpdate();
+        if (this.getNumofBooksCheckedOut() == MAX_BOOKS_CHECKEDOUT){
+          System.out.println("Return some books to borrow new books");
+          return false;
+        } else {
+          this.numOfBooksCheckedOut += 1;
+        }
+    }
+    try(Connection con2 = DB.sql2o.open()){
+      String sql = "UPDATE admins SET numOfBooksCheckedOut = :num WHERE id=:id;";
+      con2.createQuery(sql)
+        .addParameter("num", this.getNumofBooksCheckedOut())
+        .addParameter("id", this.id)
+        .executeUpdate();
+    }
+    return true;
+  }
+
+  public boolean adminReturnBook(int bookId){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "UPDATE books SET checkedOut = false, checkedOutBy = 0 WHERE id=:bookId;";
+      con.createQuery(sql, true)
+        .addParameter("bookId", bookId)
+        .executeUpdate();
+      if (this.getNumofBooksCheckedOut() == 0){
+        System.out.println("You can't return what you don't have");
+        return false;
+      } else {
+        this.numOfBooksCheckedOut -= 1;
+      }
+    }
+    try(Connection con2 = DB.sql2o.open()){
+      String sql = "UPDATE admins SET numOfBooksCheckedOut = :num WHERE id=:id;";
+      con2.createQuery(sql)
+        .addParameter("num", this.getNumofBooksCheckedOut())
+        .addParameter("id", this.id)
+        .executeUpdate();
+    }
+    return true;
+  }
 }

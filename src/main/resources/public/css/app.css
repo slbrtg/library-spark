@@ -24,3 +24,9 @@
   grid-template-columns: 105px 80px 80px 70px;
   grid-template-rows: auto auto auto auto;
 }
+
+#user-button-grid {
+  display: grid;
+  grid-template-columns: 105px 80px;
+  grid-template-rows: auto auto;
+}

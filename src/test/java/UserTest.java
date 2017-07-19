@@ -36,26 +36,26 @@ public class UserTest {
   }
 
   @Test
-  public void borrowBook_changesBookBorrowedStateInDB_true(){
+  public void userBorrowBook_changesBookBorrowedStateInDB_true(){
     User testUser = new User("test", "user");
     Book testBook = new Book("title", "author", 1979, "", "");
     testBook.save();
     Book testBook2 = new Book("title2", "author2", 1980, "", "");
     testBook2.save();
-    testUser.borrowBook(testBook.getId());
-    testUser.borrowBook(testBook2.getId());
+    testUser.userBorrowBook(testBook.getId());
+    testUser.userBorrowBook(testBook2.getId());
     assertEquals(testBook.getCheckedOutBy(), testUser.getId());
     assertEquals(2, testUser.getNumofBooksCheckedOut());
     assertTrue(Book.all().get(0).getCheckedOut());
   }
 
   @Test
-  public void returnBook_changesBookBorrowedStateInDB_true(){
+  public void userReturnBook_changesBookBorrowedStateInDB_true(){
     User testUser = new User("test", "user");
     Book testBook = new Book("title", "author", 1979, "", "");
     testBook.save();
-    testUser.borrowBook(testBook.getId());
-    testUser.returnBook(testBook.getId());
+    testUser.userBorrowBook(testBook.getId());
+    testUser.userReturnBook(testBook.getId());
     assertEquals(testBook.getCheckedOutBy(), 0);
     assertEquals(0, testUser.getNumofBooksCheckedOut());
     assertFalse(Book.all().get(0).getCheckedOut());

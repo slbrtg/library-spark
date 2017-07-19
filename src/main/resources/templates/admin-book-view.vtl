@@ -6,15 +6,15 @@
 <hr>
 <div id="admin-button-grid">
   <form action="/admin/$admin.getId()/book/$book.getId()/checkout" method="post">
-    <button class="btn btn-primary" type="button" name="button">Check Out</button>
+    <button class="btn btn-primary" type="submit" name="button">Check Out</button>
   </form>
   <form action="/admin/$admin.getId()/book/$book.getId()/return" method="post">
-    <button class="btn btn-success" type="button" name="button">Return</button>
+    <button class="btn btn-success" type="submit" name="button">Return</button>
   </form>
   <form action="/admin/$admin.getId()/book/$book.getId()/update" method="post">
-    <button class="btn btn-warning" type="button" name="button">Update</button>
+    <button class="btn btn-warning" type="submit" name="button">Update</button>
   </form>
   <form action="/admin/$admin.getId()/book/$book.getId()/delete" method="post">
-    <button class="btn btn-danger" type="button" name="button">Delete</button>
+    <button class="btn btn-danger" type="submit" name="button">Delete</button>
   </form>
 </div>

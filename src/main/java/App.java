@@ -77,6 +77,7 @@ public class App {
       User user = User.find(Integer.parseInt(request.params("userId")));
       Book book = Book.find(Integer.parseInt(request.params("bookId")));
       model.put("book", book);
+      model.put("user", user);
       model.put("template", "templates/user-book-view.vtl");
       return new VelocityTemplateEngine().render(
         new ModelAndView(model, layout)
@@ -103,6 +104,38 @@ public class App {
       model.put("books", Book.findBook(search));
       model.put("user", user);
       model.put("template", "templates/user-find-book.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    post("/user/:userId/book/:bookId/checkout", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params("userId")));
+      Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      model.put("book", book);
+      model.put("user", user);
+      if (user.userBorrowBook(book.getId())){
+        model.put("template", "templates/checkout-success.vtl");
+      } else {
+        model.put("template", "templates/checkout-failure.vtl");
+      }
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    post("/user/:userId/book/:bookId/return", (request, response) ->{
+      Map<String, Object> model = new HashMap <String, Object>();
+      User user = User.find(Integer.parseInt(request.params("userId")));
+      Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      model.put("book", book);
+      model.put("user", user);
+      if (user.userReturnBook(book.getId())){
+        model.put("template", "templates/return-success.vtl");
+      } else {
+        model.put("template", "templates/return-failure.vtl");
+      }
       return new VelocityTemplateEngine().render(
         new ModelAndView(model, layout)
       );
@@ -204,10 +237,41 @@ public class App {
       Admin admin = Admin.find(Integer.parseInt(request.params("id")));
       search.add(request.queryParams("bookTitle"));
       search.add(request.queryParams("bookAuthor"));
-      //search.add(request.queryParams("bookYear"));
       model.put("books", Book.findBook(search));
       model.put("admin", admin);
       model.put("template", "templates/admin-find-book.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    post("/admin/:adminId/book/:bookId/checkout", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("adminId")));
+      Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      model.put("book", book);
+      model.put("admin", admin);
+      if (admin.adminBorrowBook(book.getId())){
+        model.put("template", "templates/checkout-success.vtl");
+      } else {
+        model.put("template", "templates/checkout-failure.vtl");
+      }
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layout)
+      );
+    });
+
+    post("/admin/:adminId/book/:bookId/return", (request, response) ->{
+      Map<String, Object> model = new HashMap <String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("adminId")));
+      Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      model.put("book", book);
+      model.put("admin", admin);
+      if (admin.adminReturnBook(book.getId())){
+        model.put("template", "templates/return-success.vtl");
+      } else {
+        model.put("template", "templates/return-failure.vtl");
+      }
       return new VelocityTemplateEngine().render(
         new ModelAndView(model, layout)
       );
