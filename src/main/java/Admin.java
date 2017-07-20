@@ -40,7 +40,7 @@ public class Admin extends UserAbstract{
   }
 
   public boolean adminBorrowBook(int bookId){
-    Date duedate = new Date(System.currentTimeMillis()+5*60*100000);
+    Date duedate = new Date(System.currentTimeMillis()+5*60*1000000);
     Book book = Book.find(bookId);
     book.setDueDate(duedate);
     System.out.println(book.getDueDate());

@@ -2,6 +2,42 @@ html, body{
   height: 100%;
 }
 
+body {
+  background-color: black;
+}
+
+.public-page {
+  background-image: url(/images/public-library-img.jpg);
+  background-repeat:no-repeat;
+  height: 1200px;
+  width: 1800px;
+}
+
+.public-banner-text{
+  color: white;
+  font-size: 5em;
+}
+
+.login {
+  background-color: white;
+  width: 350px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  margin-top: 5%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+.loginheading{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.loginbottomtext{
+  text-align: center;
+  margin-top: 20px;
+}
+
 
 .form-control {
   width: 300px;

@@ -1,0 +1,31 @@
+<h1>Welcome to the Library of Things and Stuff</h1>
+<h3>Please log on to continue</h3>
+<hr>
+<h4>User login</h4>
+<form action="/user/authenticated" method="post">
+  <label for="userUsername">Username</label>
+  <input id="userUsername" class="form-control" type="text" name="userUsername" >
+  <label for="userPassword">Password</label>
+  <input id="userPassword" class="form-control" type="password" name="userPassword">
+  <button class="btn btn-primary" type="submit" name="button">Log in!</button>
+</form>
+<hr>
+
+<h4>Sign Up</h4>
+<form action="/signedup" method="post">
+  <label for="signupUsername">Username</label>
+  <input id="signupUsername" class="form-control" type="text" name="signupUsername" >
+  <label for="signupPassword">Password</label>
+  <input id="signupPassword" class="form-control" type="password" name="signupPassword">
+  <button class="btn btn-success" type="submit" name="button">Log in!</button>
+</form>
+<hr>
+
+<h4>Administrator login</h4>
+<form action="/admin/authenticated" method="post">
+  <label for="adminUsername">Username</label>
+  <input id="adminUsername" class="form-control" type="text" name="adminUsername" >
+  <label for="adminPassword">Password</label>
+  <input id="adminPassword" class="form-control" type="password" name="adminPassword">
+  <button class="btn btn-danger" type="submit" name="button">Log in!</button>
+</form>

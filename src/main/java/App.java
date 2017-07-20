@@ -39,6 +39,23 @@ public class App {
       );
     });
     //USER ROUTES
+    get("new-user", (request, response) -> {
+      Map<String, Object> model = new HashMap<String,Object>();
+      model.put("template", "templates/new-user.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layoutHome)
+      );
+    });
+
+    get("admin-login", (request, response) -> {
+      Map<String, Object> model = new HashMap<String,Object>();
+      model.put("template", "templates/admin-login.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layoutHome)
+      );
+    });
+
+
     get("user/:id/home", (request, response) -> {
       Map<String, Object> model = new HashMap<String,Object>();
       User user = User.find(Integer.parseInt(request.params("id")));

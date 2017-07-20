@@ -2,6 +2,7 @@ import org.sql2o.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class User extends UserAbstract {
 
@@ -59,7 +60,7 @@ public class User extends UserAbstract {
   }
 
   public boolean userBorrowBook(int bookId){
-    Date duedate = new Date(System.currentTimeMillis()+5*60*100000);
+    Date duedate = new Date(System.currentTimeMillis()+5*60*1000000);
     Book book = Book.find(bookId);
     book.setDueDate(duedate);
     System.out.println(book.getDueDate());
