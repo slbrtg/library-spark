@@ -146,6 +146,17 @@ public class App {
       );
     });
 
+    get("/user/:userId/my-books", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params("userId")));
+      model.put("user", user);
+      model.put("books", Book.findCheckedOutBy(user.getId()));
+      model.put("template", "templates/user-my-books.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layoutUser)
+      );
+    });
+
 
 
     //ADMIN ROUTES
@@ -277,6 +288,59 @@ public class App {
       } else {
         model.put("template", "templates/admin-return-failure.vtl");
       }
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layoutAdmin)
+      );
+    });
+
+    get("admin/:adminId/book/:bookId/update", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("adminId")));
+      Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      model.put("book", book);
+      model.put("admin", admin);
+      model.put("template", "templates/admin-update-book.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layoutAdmin)
+      );
+    });
+
+    post("admin/:adminId/book/:bookId/update", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("adminId")));
+      Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      String title = request.queryParams("bookTitle");
+      String author = request.queryParams("bookAuthor");
+      int year = Integer.parseInt(request.queryParams("bookYear"));
+      String description = request.queryParams("bookDescription");
+      String imageUrl = request.queryParams("bookImageUrl");
+      book.updateInformation(title, author, year, description, imageUrl);
+      model.put("book", book);
+      model.put("admin", admin);
+      model.put("template", "templates/admin-update-book-success.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layoutAdmin)
+      );
+    });
+
+    post("admin/:adminId/book/:bookId/delete", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("adminId")));
+      Book book = Book.find(Integer.parseInt(request.params("bookId")));
+      book.delete();
+      model.put("admin", admin);
+      model.put("template", "templates/admin-delete-book-success.vtl");
+      return new VelocityTemplateEngine().render(
+        new ModelAndView(model, layoutAdmin)
+      );
+    });
+
+    get("/admin/:adminId/my-books", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Admin admin = Admin.find(Integer.parseInt(request.params("adminId")));
+      model.put("admin", admin);
+      model.put("books", Book.findCheckedOutBy(admin.getId()));
+      model.put("template", "templates/admin-my-books.vtl");
       return new VelocityTemplateEngine().render(
         new ModelAndView(model, layoutAdmin)
       );

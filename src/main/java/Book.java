@@ -132,4 +132,30 @@ public class Book{
       return searchResults;
     }
   }
+
+  public boolean updateInformation(String title, String author, int year, String description, String imageUrl){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "UPDATE books SET title=:title, author=:author, year=:year, description=:description, imageUrl=:imageUrl WHERE id = :id";
+
+      con.createQuery(sql, true)
+        .addParameter("title", title)
+        .addParameter("author", author)
+        .addParameter("year", year)
+        .addParameter("description", description)
+        .addParameter("imageUrl", imageUrl)
+        .addParameter("id", this.id)
+        .executeUpdate();
+      return true;
+    }
+  }
+
+  public boolean delete(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "DELETE FROM books where id=:id;";
+      con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeUpdate();
+      return true;
+    }
+  }
 }

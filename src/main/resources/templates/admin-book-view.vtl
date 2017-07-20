@@ -2,7 +2,7 @@
 <h2>by $book.getAuthor()</h2>
 <img class="book-cover" src="$book.getImageUrl()" alt="$book.getTitle() by $book.getAuthor()" />
 <hr>
-<h4>$book.getDescription()</h4>
+<h4 class="book-description">$book.getDescription()</h4>
 <hr>
 <div id="admin-button-grid">
   <form action="/admin/$admin.getId()/book/$book.getId()/checkout" method="post">
@@ -11,9 +11,9 @@
   <form action="/admin/$admin.getId()/book/$book.getId()/return" method="post">
     <button class="btn btn-success" type="submit" name="button">Return</button>
   </form>
-  <form action="/admin/$admin.getId()/book/$book.getId()/update" method="post">
-    <button class="btn btn-warning" type="submit" name="button">Update</button>
-  </form>
+  <a href="/admin/$admin.getId()/book/$book.getId()/update">
+      <button class="btn btn-warning" type="submit" name="button">Update</button>
+  </a>
   <form action="/admin/$admin.getId()/book/$book.getId()/delete" method="post">
     <button class="btn btn-danger" type="submit" name="button">Delete</button>
   </form>

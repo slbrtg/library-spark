@@ -1,0 +1,17 @@
+<h1>Update the details for this book</h1>
+<hr>
+<form action="/admin/$admin.getId()/book/$book.getId()/update" method="post">
+  <label for="bookTitle">Edit Title</label>
+  <input id="bookTitle" class="form-control" type="text" name="bookTitle" value="$book.getTitle()">
+  <label for="bookAuthor">Edit Author</label>
+  <input id="bookAuthor" class="form-control" type="text" name="bookAuthor" value="$book.getAuthor()">
+  <label for="bookYear">Edit Year</label>
+  <input id="bookYear" class="form-control" type="text" name="bookYear" value="$book.getYear()">
+  <label for="bookDescription">Edit Description</label>
+  <textarea id="bookDescription" class="form-control" name="bookDescription" cols="40" rows="5">$book.getDescription()</textarea>
+
+  <!-- <input id="bookDescription" class="form-control" type="text" name="bookDescription" value="$book.getDescription()"> -->
+  <label for="bookImageUrl">Edit url to image (local or web)</label>
+  <input id="bookImageUrl" class="form-control" type="text" name="bookImageUrl" value="$book.getImageUrl()" >
+  <button class="btn btn-primary" type="submit" name="button">Update book</button>
+</form>

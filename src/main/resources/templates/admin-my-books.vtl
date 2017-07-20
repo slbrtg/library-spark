@@ -1,0 +1,14 @@
+<h1>Your books</h1>
+#foreach ($book in $books)
+<hr>
+<img class="book-cover-small" src="$book.getImageUrl()" alt="" />
+<h2><a href="/admin/$admin.getId()/book/$book.getId()">$book.getTitle()</a></h2>
+<h3>by $book.getAuthor()</h3>
+<h4>year $book.getYear()</h4>
+<h5>return by: $book.getDueDate()</h5>
+<div id="admin-button-grid">
+  <form action="/admin/$admin.getId()/book/$book.getId()/return" method="post">
+    <button class="btn btn-success" type="submit" name="button">Return</button>
+  </form>
+</div>
+#end

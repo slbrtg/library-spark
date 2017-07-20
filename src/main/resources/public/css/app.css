@@ -1,3 +1,8 @@
+html, body{
+  height: 100%;
+}
+
+
 .form-control {
   width: 300px;
   margin-bottom: 25px;
@@ -13,10 +18,16 @@
   width: 225px;
 }
 
+.book-description {
+  width: 400px;
+  height: 150px;
+  overflow: auto;
+}
+
 #bookDescription {
   height: 500px;
   width: 300px;
-  overflow: auto;
+  word-break: break-word;
 }
 
 #admin-button-grid {
@@ -29,8 +40,4 @@
   display: grid;
   grid-template-columns: 105px 80px;
   grid-template-rows: auto auto;
-}
-
-.library-banner {
-  display: hidden;
 }

@@ -2,7 +2,7 @@
 <h2>by $book.getAuthor()</h2>
 <img class="book-cover" src="$book.getImageUrl()" alt="$book.getTitle() by $book.getAuthor()" />
 <hr>
-<h4>$book.getDescription()</h4>
+<h4 class="book-description">$book.getDescription()</h4>
 <hr>
 <div id="user-button-grid">
   <form action="/user/$user.getId()/book/$book.getId()/checkout" method="post">
