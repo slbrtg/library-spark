@@ -72,19 +72,33 @@ public class BookTest{
   }
 
 
-    @Test
-    public void findBook_findsBookByTitleAuthorAndYear_true(){
-      Book testBook = new Book("title", "author", 1979, "", "");
-      testBook.save();
-      List<String> query = Arrays.asList("title", "author", "1979");
-      assertEquals(testBook.getTitle(), Book.findBook(query).get(0).getTitle());
-    }
+  @Test
+  public void findBook_findsBookByTitleAuthorAndYear_true(){
+    Book testBook = new Book("title", "author", 1979, "", "");
+    testBook.save();
+    List<String> query = Arrays.asList("title", "author", "1979");
+    assertEquals(testBook.getTitle(), Book.findBook(query).get(0).getTitle());
+  }
 
-    @Test
-    public void set_getDueDate_returnsTrue(){
-      Date duedate = new Date(System.currentTimeMillis()+5*60*100000);
-      Book testBook = new Book("title", "author", 1979, "", "");
-      testBook.setDueDate(duedate);
-      assertEquals(duedate, testBook.getDueDate());
-    }
+  @Test
+  public void set_getDueDate_returnsTrue(){
+    Date duedate = new Date(System.currentTimeMillis()+5*60*100000);
+    Book testBook = new Book("title", "author", 1979, "", "");
+    testBook.setDueDate(duedate);
+    assertEquals(duedate, testBook.getDueDate());
+  }
+
+  @Test
+  public void findCheckedOutBy_returnsAllBooksCheckedOutByTestUser_true(){
+    User testUser = new User("test", "user");
+    testUser.save();
+    Book testBook = new Book("title", "author", 1979, "", "");
+    testBook.save();
+    Book testBook2 = new Book("title2", "author2", 1980, "", "");
+    testBook2.save();
+    testUser.userBorrowBook(testBook.getId());
+    testUser.userBorrowBook(testBook2.getId());
+    assertEquals(testBook.getId(), Book.findCheckedOutBy(testUser.getId()).get(0).getId());
+    assertEquals(testBook2.getId(), Book.findCheckedOutBy(testUser.getId()).get(1).getId());
+  }
 }

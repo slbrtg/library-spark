@@ -121,6 +121,15 @@ public class Book{
         .executeAndFetch(Book.class);
       return searchResults;
     }
+  }
 
+  public static List<Book> findCheckedOutBy(int id){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM books WHERE checkedoutby = :id;";
+      List<Book> searchResults = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetch(Book.class);
+      return searchResults;
+    }
   }
 }
