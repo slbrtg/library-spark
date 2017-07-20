@@ -2,15 +2,19 @@ html, body{
   height: 100%;
 }
 
-body {
+/*body {
   background-color: black;
-}
+}*/
 
 .public-page {
   background-image: url(/images/public-library-img.jpg);
   background-repeat:no-repeat;
   height: 1200px;
   width: 1800px;
+}
+
+.public-pages {
+  background-color: black;
 }
 
 .public-banner-text{
